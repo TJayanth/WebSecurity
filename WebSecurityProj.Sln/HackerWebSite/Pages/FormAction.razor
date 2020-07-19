@@ -1,0 +1,35 @@
+﻿@page "/formaction"
+
+
+<h2>Form Action Hijack</h2>
+<p>
+    Form action hijacking allows an attacker to specify the action URL of a form via a paramter. An attacker can construct a URL that will modify the action URL of a form to point to the attacker's server.
+</p>
+<hr />
+
+<img src="/Images/formaction.png" />
+
+<hr />
+<div class="row form-horizontal">
+    <div class="col">
+        <div>
+            <h5>Un-Secured Site</h5>
+            Get Latest offers for your bank account.
+            <a href="http://www.banksite.com:84/Account/Login?url=http://www.hackersden.com:86/account/login" target="_blank">
+                Login
+            </a>
+            to avail the offer
+        </div>
+    </div>
+    <div class="col">
+        <div>
+            <h5>Secured Site</h5>
+            Get Latest offers for your bank account.
+            <a href="http://www.securedbanksite.com:85/Account/Login?url=http://www.hackersden.com:86/account/login" target="_blank">
+                Login
+            </a>
+            to avail the offer
+        </div>
+    </div>
+</div>
+

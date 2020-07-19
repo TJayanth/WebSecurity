@@ -1,0 +1,140 @@
+﻿@model TrackDeliveryVM
+
+@{
+    ViewData["Title"] = "Track Delivery";
+}
+
+<h1>Track Delivery</h1>
+<script>
+    $(document).ready(function () {
+        $(document).on("keyup", "#waybillno", function (e) {
+            var sqlQuery = 'SELECT * FROM Deliveries WHERE WayBillNo = ';
+            $("#temp").text(sqlQuery + e.currentTarget.value);
+            console.log(editableCodeMirror);
+            editableCodeMirror.setValue("");
+            editableCodeMirror.replaceRange(sqlQuery + e.currentTarget.value, { line: Infinity });
+        })
+
+        var editableCodeMirror = CodeMirror.fromTextArea(document.getElementById('temp'), {
+            mode: "text/x-mysql",
+            indentWithTabs: true,
+            smartIndent: true,
+            lineNumbers: false,
+            matchBrackets: true,
+            autofocus: true,
+            extraKeys: { "Ctrl-Space": "autocomplete" },
+            hintOptions: {
+                tables: {
+                    users: { name: null, score: null, birthDate: null },
+                    countries: { name: null, population: null, size: null }
+                }
+            }
+        });
+        editableCodeMirror.setSize(600, 50);
+        if ('@Model.WayBillNo') {
+            var sqlQuery = 'SELECT * FROM Deliveries WHERE WayBillNo = ';
+            editableCodeMirror.setValue(sqlQuery + '@Model.WayBillNo');
+        }
+
+        $("#waybillno").focus()
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        if ('@Model.IsError' =='True') {
+            swal("Error", "Way Bill Number accepts only integer values", "error")
+        }
+    })
+</script>
+<link rel="stylesheet" href="https://codemirror.net/lib/codemirror.css">
+<link rel="stylesheet" href="https://codemirror.net/addon/hint/show-hint.css">
+
+<script src="https://codemirror.net/lib/codemirror.js"></script>
+<script src="https://codemirror.net/addon/edit/matchbrackets.js"></script>
+<script src="https://codemirror.net/mode/sql/sql.js"></script>
+<script src="https://codemirror.net/addon/hint/show-hint.js"></script>
+<script src="https://codemirror.net/addon/hint/sql-hint.js"></script>
+<script>
+
+
+</script>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="TrackDelivery">
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <label asp-for="WayBillNo" class="control-label"></label>
+                <input id="waybillno" asp-for="WayBillNo" class="form-control" autofocus />
+                <span asp-validation-for="WayBillNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="View" class="btn btn-primary" />
+            </div>
+
+        </form>
+    </div>
+    <div class="form-group">
+        <h6>Query that gets generated</h6>
+        <span id="textAreaQuery">
+            <textarea rows="2" cols="50" id="temp" name="temp" readonly></textarea>
+        </span>
+    </div>
+</div>
+
+<table class="table table-sm table-striped">
+    <thead>
+        <tr>
+            <th>Del.Id</th>
+            <th>WayBillNo</th>
+            <th>Rec.Name</th>
+            <th>PAN</th>
+            <th>From</th>
+            <th>To Address</th>
+            <th>Phone</th>
+            <th>Delievery</th>
+            <th>Active</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.DeliveriesList)
+        {
+            <tr>
+                <td>@item.DeliveryId</td>
+                <td>@item.WayBillNo</td>
+                <td>@item.ReceiverName</td>
+                <td>@item.PanCardNo</td>
+                <td>@item.FromAddress</td>
+                <td>@item.ToAddress</td>
+                <td>@item.Phone</td>
+                <td>
+                    @if (item.IsDelivered)
+                    {
+                        <label class="badge badge-success">Delivered</label>
+                    }
+                    else
+                    {
+                        <label class="badge badge-warning">In Transit</label>
+
+                    }
+                </td>
+                <td>
+                    @if (item.IsActive)
+                    {
+                        <label class="badge badge-success">Active</label>
+                    }
+                    else
+                    {
+                        <label class="badge badge-danger">In Active</label>
+
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<style>
+    .CodeMirror-cursors {
+        visibility: hidden !important;
+    }
+</style>

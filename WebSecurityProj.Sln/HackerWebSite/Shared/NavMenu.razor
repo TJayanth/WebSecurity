@@ -1,0 +1,73 @@
+﻿<div class="top-row pl-4 navbar navbar-dark">
+    <a class="navbar-brand" href="">Hacker's Den</a>
+    <button class="navbar-toggler" @onclick="ToggleNavMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</div>
+
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+    <ul class="nav flex-column">
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> Home
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="sqlinjection">
+                <span class="oi oi-shield" aria-hidden="true"></span> SQL Injection
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="CSRF">
+                <span class="oi oi-lock-unlocked" aria-hidden="true"></span> CSRF
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="XSS">
+                <span class="oi oi-bug" aria-hidden="true"></span> XSS
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="frame">
+                <span class="oi oi-account-login" aria-hidden="true"></span> Click Jacking
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="formaction">
+                <span class="oi oi-script" aria-hidden="true"></span> Form Action Hijacking
+            </NavLink>
+        </li>
+
+        <li class="nav-item px-5">
+            <NavLink class="nav-link" href="hackedlogin">
+                <span class="oi oi-people" aria-hidden="true"></span> Credentials
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="webattacks">
+                <span class="oi oi-terminal" aria-hidden="true"></span> Web Attacks List
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="siteprop">
+                <span class="oi oi-document" aria-hidden="true"></span> About
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="questions">
+                <span class="oi oi-puzzle-piece" aria-hidden="true"></span> Questions
+            </NavLink>
+        </li>
+    </ul>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

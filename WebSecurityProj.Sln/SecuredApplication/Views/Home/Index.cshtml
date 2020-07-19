@@ -1,0 +1,9 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+    <div class="text-center">
+        <h4>Welcome to ABC Bank <b class="text-success">[Secured]</b></h4>
+        <img src="/Images/secured.jpg" width="300px" height="300px" />
+        @Html.AntiForgeryToken()
+    </div>

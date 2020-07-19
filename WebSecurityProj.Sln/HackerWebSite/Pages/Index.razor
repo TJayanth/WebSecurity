@@ -1,0 +1,102 @@
+﻿@page "/"
+
+<h2>Ethical Hacking &amp; Web Protection!</h2>
+
+<h6 style="font-family:Segoe UI,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,Helvetica,Ubuntu,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;">
+    Web Security Analysis - By Jayanth
+</h6>
+
+<div class="row">
+    <div class="col-md-6">
+        <img src="/Images/1.gif" />
+    </div>
+    <div class="col-md-6">
+        <img src="/Images/2.gif" />
+    </div>
+</div>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-3">.</div>
+    <div class="col-md-2">
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <img src="/Images/unsecured.jpg" width="100px" />
+                </div>
+                <div class="flip-card-back">
+                    <br/>
+                    <h5>UnSecured Site</h5>
+                    <a href="http://www.banksite.com:84/" target="_blank">Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">.</div>
+    <div class="col-md-2">
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <img src="/Images/secured.jpg" width="100px" height="100px" />
+                </div>
+                <div class="flip-card-back">
+                    <br />
+                    <h5>Secured Site</h5>
+                    <a href="http://www.securedbanksite.com:85" target="_blank">Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    /* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
+    .flip-card {
+        background-color: transparent;
+        /*width: 300px;*/
+        height: 100px;
+        border: 1px solid #f1f1f1;
+        perspective: 1000px; /* Remove this if you don't want the 3D effect */
+    }
+
+    /* This container is needed to position the front and back side */
+    .flip-card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        transition: transform 0.8s;
+        transform-style: preserve-3d;
+    }
+
+    /* Do an horizontal flip when you move the mouse over the flip box container */
+    .flip-card:hover .flip-card-inner {
+        transform: rotateY(180deg);
+    }
+
+    /* Position the front and back side */
+    .flip-card-front, .flip-card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        -webkit-backface-visibility: hidden; /* Safari */
+        backface-visibility: hidden;
+    }
+
+    /* Style the front side (fallback if image is missing) */
+    .flip-card-front {
+        /*background-color: #bbb;*/
+        color: black;
+    }
+
+    /* Style the back side */
+    .flip-card-back {
+        background-color: azure;
+        color: black;
+        transform: rotateY(180deg);
+        height: 100px;
+    }
+</style>
+

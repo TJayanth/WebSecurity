@@ -1,0 +1,85 @@
+﻿@page "/sqlinjection"
+
+
+<h2>SQL Injection</h2>
+<hr />
+
+<p class="">
+    <img src="/Images/sqlinjection1.png" width="500px" height="300px" />
+</p>
+<hr />
+
+<div class="row form-horizontal">
+    <div class="col">
+        <h5>Un-Secured Site</h5>
+        <a href="http://www.banksite.com:84/Product/TrackDelivery" target="_blank">Click here</a>
+    </div>
+    <div class="col">
+        <h5>Secured Site</h5>
+        <a href="http://www.securedbanksite.com:85/Product/TrackDelivery" target="_blank">Click here</a>
+    </div>
+</div>
+
+<hr />
+
+<div class="row">
+    <div class="col">
+        <button class="btn btn-sm btn-outline-secondary" @onclick="ShowDevelopersDiv">Extended Testing</button>
+    </div>
+    <div class="@sqlmapDiv col">
+        <a class="btn btn-sm btn-danger" href="https://cybersguards.com/google-dorks-list-latest-sql-dorks-list-fresh-update/" target="_blank">2020 Dorks</a>
+    </div>
+
+</div>
+
+<br />
+
+<div class="@sqlmapDiv row">
+    <div class="col">
+        <h4>SQL Map</h4>
+        <p>
+            <b>sqlmap</b> is an open source penetration testing tool that automates the process of detecting and exploiting <b>SQL injection flaws and taking over of database servers.</b>
+            <br />
+            <a href="http://sqlmap.org/" target="_blank">http://sqlmap.org/</a>
+        </p>
+    </div>
+    <div class="col">
+        <h4>Google Dorks</h4>
+        <p>
+            We can use Google Dorks <b>to find vulnerabilities, hidden information and access pages on certain websites.</b>
+                Google Dorks also classified as SQL Dorks, the words used to search for information that is not available to the general public. Such dorks are returning you with user data exposed. An professional will access account credentials, word press username, subscription lists, and database profile information in some instances.
+            <a href="https://en.wikipedia.org/wiki/Google_hacking" target="_blank">https://en.wikipedia.org/wiki/Google_hacking</a>
+
+        </p>
+    </div>
+</div>
+
+@functions {
+    string sqlmapDiv { get; set; }
+}
+
+@code {
+    private void ShowDevelopersDiv()
+    {
+        if (sqlmapDiv == "divVisible")
+            sqlmapDiv = "divHidden";
+        else
+            sqlmapDiv = "divVisible";
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        sqlmapDiv = "divHidden";
+
+    }
+}
+
+<style>
+    .divVisible {
+        display: block;
+    }
+
+    .divHidden {
+        display: none;
+    }
+</style>

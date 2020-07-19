@@ -1,0 +1,63 @@
+﻿@model WebSecurityProj.Models.TransferMoneyDTO
+
+@{
+    ViewData["Title"] = "Transfer";
+}
+
+    <script>
+    $(document).ready(function () {
+        if ('@Model.IsTransfered' =='True') {
+            swal("Transfered", "Rs. "+ '@Model.Amount' + " successfully transferd to account " + '@Model.ToAccountName', "success")
+
+        }
+    })
+
+
+    //sweetAlert("a", "b", "error");
+    </script>
+
+<h1>Third Party Transfer</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Transfer">
+            @*@Html.AntiForgeryToken()*@
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="FromAccount" class="control-label"></label>
+                <input asp-for="FromAccount" class="form-control" />
+                <span asp-validation-for="FromAccount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ToAccountName" class="control-label"></label>
+                <input asp-for="ToAccountName" class="form-control" />
+                <span asp-validation-for="ToAccountName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ToAccountNumber" class="control-label"></label>
+                <input asp-for="ToAccountNumber" class="form-control" />
+                <span asp-validation-for="ToAccountNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IFSCCode" class="control-label"></label>
+                <input asp-for="IFSCCode" class="form-control" />
+                <span asp-validation-for="IFSCCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Amount" class="control-label"></label>
+                <input asp-for="Amount" class="form-control" />
+                <span asp-validation-for="Amount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Transfer" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

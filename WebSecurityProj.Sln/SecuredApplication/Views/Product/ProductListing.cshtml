@@ -1,0 +1,108 @@
+﻿@model List<ProductsDTO>
+
+@{
+    ViewData["Title"] = "Product Listing";
+}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css">
+<div class="row">
+    <div class="col">
+        <h1>Product Listing</h1>
+    </div>
+    <span class="pull-right">
+        <a class="btn btn-secondary btn-sm" href="@Url.Action("Add","Product")">Add</a>
+    </span>
+</div>
+@Html.AntiForgeryToken()
+<table class="table table-sm table-striped">
+    <thead>
+        <tr>
+            @*<th>Del.Id</th>*@
+            <th>Product</th>
+            <th class="w-25">Description</th>
+            <th>M.Name</th>
+            <th>Price</th>
+            <th>Available</th>
+            <th>Active</th>
+            <th>Date</th>
+            <th colspan="3">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ProductName</td>
+                <td class="w-25">@item.Description</td>
+                <td>@item.ManufacturerName</td>
+                <td>@item.Price</td>
+                <td>
+                    @if (item.IsAvailable)
+                    {
+                        <label class="badge badge-success">Available</label>
+                    }
+                    else
+                    {
+                        <label class="badge badge-warning">Not Available</label>
+
+                    }
+
+                </td>
+                <td>
+                    @if (item.IsActive)
+                    {
+                        <label class="badge badge-success">Active</label>
+                    }
+                    else
+                    {
+                        <label class="badge badge-danger">In Active</label>
+
+                    }
+                </td>
+                <td>@item.CreatedDate</td>
+                <td colspan="3">
+                    <button class="btn btn-sm btn-outline-danger" onclick="deleteProduct('@item.ProductId')">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-success">
+                        <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    function deleteProduct(productId) {
+        var url = '@Url.Action("Delete","Product")';
+        var productId = { productId: productId };
+        $.post(url, productId, function (data, status) {
+            if (data) {
+                //swal("Done", "Successfully deleted the product", "success");
+                swal({
+                    title: "Done",
+                    text: "Deleted the product successfully",
+                    type: "success"
+                }, function () {
+                    window.location.reload();
+                });
+            }
+            else {
+                swal({
+                    title: "Error",
+                    text: "Error deleting product",
+                    type: "error"
+                }, function () {
+                    window.location.reload();
+                });
+            }
+        });
+    }
+</script>
+
+<style>
+    table {
+        font-size: 14px;
+    }
+</style>
